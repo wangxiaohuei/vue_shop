@@ -17,12 +17,16 @@ const config = {
 
 const _axios = axios.create(config)
 
+// 请求拦截器
 _axios.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
+  config => {
+    // 得到
+    console.log(config)
+    config.headers.Authorization = window.sessionStorage.getItem('token')
+    // 在最后必须把 config 返回出去
     return config
   },
-  function (error) {
+  function(error) {
     // Do something with request error
     return Promise.reject(error)
   }
@@ -30,27 +34,27 @@ _axios.interceptors.request.use(
 
 // Add a response interceptor
 _axios.interceptors.response.use(
-  function (response) {
+  function(response) {
     // Do something with response data
     return response
   },
-  function (error) {
+  function(error) {
     // Do something with response error
     return Promise.reject(error)
   }
 )
 
-Plugin.install = function (Vue, options) {
+Plugin.install = function(Vue, options) {
   Vue.axios = _axios
   window.axios = _axios
   Object.defineProperties(Vue.prototype, {
     axios: {
-      get () {
+      get() {
         return _axios
       }
     },
     $http: {
-      get () {
+      get() {
         return _axios
       }
     }

@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       // 登录表单的数据绑定对象
       loginForm: {
@@ -70,12 +70,12 @@ export default {
   },
   methods: {
     // 点击充值按钮
-    resetLoginForm () {
+    resetLoginForm() {
       this.$refs.loginFormRef.resetFields()
     },
     // 登录函数
-    login () {
-      this.$refs.loginFormRef.validate(async (valid) => {
+    login() {
+      this.$refs.loginFormRef.validate(async valid => {
         console.log(valid)
         if (!valid) {
           return false
